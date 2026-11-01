@@ -1,4 +1,5 @@
 import math
+from collections import defaultdict
 
 
 class Point:
@@ -232,7 +233,23 @@ class Classe:
                     L=list(map(float, parts[3:]))
                     for e in L:
                         student.add_grade(parts[2].strip(), e)
-                
+
+    def catalog(self):
+        d=defaultdict(int)
+        for student in self.students.values():
+            for course in student.followed_topics():
+                d[course]=d[course]+1
+        return d
+
+    def compute_averages(self):
+        d=defaultdict(float)
+        effectifs=self.catalog()
+        for student in self.students.values():
+            for course in student.followed_topics():
+                d[course]=student.compute_average(course)+d[course]
+        return {course: d[course]/effectifs[course] for course in effectifs}
+
+
 
 
 
@@ -312,9 +329,40 @@ class Classe:
 
 #Le test dit qu'il n'y a pas de message d'avertissement car le nom "Personne" n'est pas dans le fichier grades.csv
 
+# pour tester
 
-   
+#try:
+   # classe = Classe("P1920")
+   # classe.load_students_from_file('classe.csv')
+   # classe.load_grades_from_file('grades.csv')
+   # true_catalog = {'Physics': 3, 'Mathematics': 2, 'Scubadiving': 1}
+   # assert classe.catalog() == true_catalog, f"got {classe.catalog()}"
+#except Exception as e:
+    #print("OOPS - Something's wrong")
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works ! ')
+
+ #Encore une fois je crois que je n'ai pas le bon fichier csv  
     
+# pour tester
+
+#try:
+    #import math
+   # classe = Classe("P1920")
+   #classe.load_students_from_file('classe.csv')
+   #classe.load_grades_from_file('grades.csv')
+   # true_averages = {'Physics': (15 + 11 + 18) / 3,
+    #                 'Mathematics': (13 + 15) / 2,
+    #                 'Scubadiving': 9.5}
+    #avgs = classe.compute_averages()
+   #assert avgs.keys() == true_averages.keys(), f"got topics {list(avgs)}"
+    #assert all(math.isclose(avgs[top], true_averages[top]) for top in true_averages)
+#except Exception as e:
+   # print("OOPS - Something's wrong")
+   # print(f"Error message : {e}")
+#else:
+   # print('Congrats ! Your implementation works ! ')
 
  
 
