@@ -82,13 +82,121 @@ class Student:
         notes = self.grades[course]
         return sum(notes) / len(notes)
 
-
-class Classe:
-    def __init__(self, classname: str):
-        self.classname=classname
-
-    def add_student(self, student: Student):
+    def report(self):
+        largeur = 15
+        sep_double = "+" + "=" * largeur + "+" + "=" * largeur + "+"
+        sep_simple = "+" + "-" * largeur + "+" + "-" * largeur + "+"
+        lignes = [f"Report for student {self.first_name} {self.last_name}"]
+        lignes.append(sep_double)
+        lignes.append("|" + "Topic".center(largeur) + "|" + "Average".center(largeur) + "|")
+        lignes.append(sep_double)
         
+        for course in self.grades:
+            moyenne = f"{self.compute_average(course):.2f}"
+            lignes.append("|" + course.center(largeur) + "|" + moyenne.center(largeur) + "|")
+            lignes.append(sep_simple)
+        return "\n".join(lignes)
+
+# pour tester
+
+#try:
+    #reference_lines = ['Report for student Albert Einstein',
+                       '+===============+===============+',
+                       '|     Topic     |    Average    |',
+                       '+===============+===============+',
+                       '|  Mathematics  |     12.80     |',
+                       '+---------------+---------------+',
+                       '|  Scubadiving  |     12.50     |',
+                       '+---------------+---------------+']
+
+   # student = Student("Albert", "Einstein")
+   # student.add_grade("Mathematics", 12.80)
+   # student.add_grade("Scubadiving", 12.50)
+   # report = student.report()
+   # report_lines = report.strip().split('\n')
+   # assert len(report_lines) == len(reference_lines), \
+   #     f"expected {len(reference_lines)} lines, got {len(report_lines)}"
+    #for i, (lineref, linestudent) in enumerate(zip(reference_lines, report_lines), start=1):
+    #    assert lineref == linestudent, f"Ligne {i} : \n attendu = {lineref}\n  obtenu = {linestudent}"
+#except AssertionError as e:
+    #print("Les deux chaines sont différentes")
+    #print(e)
+#except Exception as e:
+    #print("OOPS - Something's wrong")
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works !')
+
+#try:
+   #r = repr(student)
+    #assert "Achille" in r and "Talon" in r, f"first and last name should appear in {r!r}"
+#except Exception as e:
+    #print('OOPS - There is an issue in your code.')
+    #else:
+   # print('Congrats ! Your implementation works !')
+
+ 
+
+# pour tester
+
+#try:
+    #student = Student("Achille", "Talon")
+    #student.add_grade("History", 10.)
+    #student.add_grade("History", 12.)
+    #try:
+        #student.add_grade("History", 25.)
+    #except ValueError:
+        #pass
+    #else:
+        #raise Exception("a grade outside of [0, 20] should raise ValueError")
+#except Exception as e:
+    #print('OOPS - There is an issue in your add_grade method.')
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works !')
+
+# pour tester
+
+#try:
+    #student = Student("Achille", "Talon")
+    #student.add_grade("History", 10.)
+    #topics = student.followed_topics()
+    #if len(topics) != 1 or "History" not in topics:
+        #raise Exception(f"Expecting ['History'] got {topics}")
+#except Exception as e:
+    #print('OOPS - There is an issue in your followed_topics method')
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works !')
+
+# pour tester
+
+#try:
+    #student = Student("Achille", "Talon")
+    #student.add_grade("History", 10.)
+    #student.add_grade("History", 12.)
+    #if (student.compute_average("History") != 11.):
+        #raise Exception("Issue in your average calculation.")
+    #try:
+       # student.compute_average("French")
+    #except ValueError:
+        #pass
+    #else:
+        #raise Exception("If topic is not followed, a ValueError is expected")
+    #if student.followed_topics() != ["History"]:
+       # raise Exception(f"asking for the average of an unfollowed topic must not create it: {student.followed_topics()}")
+#except Exception as e:
+   # print('OOPS - There is an issue in your compute_average method.')
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works !')
+
+
+
+
+  
+
+
    
     
 
