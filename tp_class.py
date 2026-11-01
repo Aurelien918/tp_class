@@ -64,7 +64,7 @@ class Student:
         self.grades=defaultdict(list)
 
     def __repr__(self):
-        return f"{self.fist_name},{self.last_name}"
+        return f"{self.first_name},{self.last_name}"
 
     def add_grade(self, course: str, grade: float):
         if 0<= grade <=20:
@@ -101,13 +101,13 @@ class Student:
 
 #try:
     #reference_lines = ['Report for student Albert Einstein',
-                       '+===============+===============+',
-                       '|     Topic     |    Average    |',
-                       '+===============+===============+',
-                       '|  Mathematics  |     12.80     |',
-                       '+---------------+---------------+',
-                       '|  Scubadiving  |     12.50     |',
-                       '+---------------+---------------+']
+    #                   '+===============+===============+',
+    #                   '|     Topic     |    Average    |',
+     #                  '+===============+===============+',
+     #                  '|  Mathematics  |     12.80     |',
+     #                  '+---------------+---------------+',
+     #                  '|  Scubadiving  |     12.50     |',
+     #                  '+---------------+---------------+']
 
    # student = Student("Albert", "Einstein")
    # student.add_grade("Mathematics", 12.80)
@@ -191,6 +191,55 @@ class Student:
 #else:
     #print('Congrats ! Your implementation works !')
 
+class Classe:
+    def __init__(self, classname: str):
+        self.classname=classname
+        self.students=dict()
+
+    def add_student(self, student: Student):
+        self.students[(student.first_name, student.last_name)] = student
+        
+    def __len__(self):
+        return len(self.students)
+
+    def __repr__(self):
+        eleves = list(self.students.values())
+        return f"Class({self.classname}, Students: {eleves})"
+
+    def get_student(self, first_name: str, last_name: str):
+        return self.students.get((first_name, last_name))
+# pour tester
+
+#try:
+    #classe = Classe("P20")
+    #student = Student("Matthieu", "Mazière")
+   # classe.add_student(student)
+   # if len(classe) != 1:
+    #    raise Exception('OOPS - There is an issue in your __len__ method.')
+    #r = repr(classe)
+    #if "P20" not in r or "Matthieu" not in r:
+    #    raise Exception('OOPS - There is an issue in your __repr__ method.')
+#except Exception as e:
+   # print("OOPS - Something's wrong")
+    #print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works !')
+
+# pour tester
+
+#try:
+   # classe = Classe("P20")
+   # student = Student("Matthieu", "Mazière")
+   # classe.add_student(student)
+   # new_student = classe.get_student("Matthieu", "Mazière")
+   # assert student is new_student
+   # new_student = classe.get_student("Jérôme", "Adnot")
+   # assert new_student is None
+#except Exception as e:
+    #print("OOPS - Something's wrong")
+   # print(f"Error message : {e}")
+#else:
+   # print('Congrats ! Your implementation works !')
 
 
 
