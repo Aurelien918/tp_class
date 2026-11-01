@@ -64,7 +64,7 @@ class Student:
         self.grades=defaultdict(list)
 
     def __repr__(self):
-        return f"{self.first_name},{self.last_name}"
+            return f"Student({self.first_name} {self.last_name}, Grades: {self.grades})"
 
     def add_grade(self, course: str, grade: float):
         if 0<= grade <=20:
@@ -208,6 +208,38 @@ class Classe:
 
     def get_student(self, first_name: str, last_name: str):
         return self.students.get((first_name, last_name))
+
+    def load_students_from_file(self, filename: str):
+        with open(filename, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split(',')
+                if len(parts)>=2:
+                    first_name=parts[0].strip()
+                    last_name=parts[1].strip()
+                    self.add_student(Student(first_name,last_name))
+
+    def load_grades_from_file(self, filename: str):
+        with open(filename, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split(',')
+                if len(parts) < 4:
+                    continue 
+                student = self.get_student(parts[0].strip(), parts[1].strip())
+                if student is None:
+                    print("Attention",parts[0].strip() ,parts[1].strip(),"n'est pas dans la classe")
+                    continue
+                else:
+                    L=list(map(float, parts[3:]))
+                    for e in L:
+                        student.add_grade(parts[2].strip(), e)
+                
+
+
+
+
+
+
+    
 # pour tester
 
 #try:
@@ -241,9 +273,44 @@ class Classe:
 #else:
    # print('Congrats ! Your implementation works !')
 
+# pour tester
 
+#try:
+    #classe = Classe("P1920")
+    #classe.load_students_from_file('classe.csv')
+    #if len(classe) != 3:
+       # raise Exception('OOPS - There is an issue in your load_students_from_file method')
+    #assert classe.get_student("Enrico", "Fermi") is not None
+#except Exception as e:
+   # print("OOPS - Something's wrong")
+    #print(f"Error message : {e}")
+#else:
+   # print('Congrats ! Your implementation works ! ')
 
+#je pense qu'il y a une erreur dans le test à la ligne 265 (il y a bien plus de 3 noms)
   
+# pour tester
+
+#import io
+#import contextlib
+
+#try:
+   # classe = Classe("P1920")
+   # classe.load_students_from_file('classe.csv')
+   # buffer = io.StringIO()
+    #with contextlib.redirect_stdout(buffer):
+        classe.load_grades_from_file('grades.csv')
+    #assert "Personne" in buffer.getvalue(), "no warning printed for the unknown student"
+    #assert classe.get_student("Albert", "Einstein").compute_average("Physics") == 15.
+    #assert classe.get_student("Albert", "Einstein").compute_average("Mathematics") == 13.
+    #assert classe.get_student("Enrico", "Fermi").compute_average("Scubadiving") == 9.5
+#except Exception as e:
+   # print("OOPS - Something's wrong")
+   # print(f"Error message : {e}")
+#else:
+    #print('Congrats ! Your implementation works ! ')
+
+#Le test dit qu'il n'y a pas de message d'avertissement car le nom "Personne" n'est pas dans le fichier grades.csv
 
 
    
